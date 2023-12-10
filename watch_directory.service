@@ -1,0 +1,15 @@
+[Unit]
+Description=Watch Directory Service
+After=network.target
+
+[Service]
+ExecStart=/home/HomeWork/watch_directory.sh
+Restart=always
+User=kostia
+Group=root
+Enviroment=HOME=/home/kostia
+
+
+[Install]
+WantedBy=default.target
+
