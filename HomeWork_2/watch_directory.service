@@ -1,0 +1,15 @@
+[Unit]
+Description=Watch Directory Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/inotifywait -m -r -e create,move,delete /home/kostia | /home/HomeWork/HomeWork_1/watch_script.sh
+Restart=always
+User=kostia
+Group=kostia
+Environment=HOME=/home/kostia
+StartLimitIntervalSec=5
+StartLimitBurst=10
+
+[Install]
+WantedBy=default.target
