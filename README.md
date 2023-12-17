@@ -1,4 +1,1 @@
-DanIT2
-TEST
-DanIT2
-Hello, Kostia
+Hello, this is a repository for DanIT2 Homeworks!
