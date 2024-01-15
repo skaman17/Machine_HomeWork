@@ -1,0 +1,11 @@
+[Unit]
+Description=Prometheus MySQL Exporter
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=mysqlexpr
+ExecStart=/usr/local/bin/mysqld_exporter --config.my-cnf=/home/mysqlexpr/.my.cnf
+
+[Install]
+WantedBy=multi-user.target
