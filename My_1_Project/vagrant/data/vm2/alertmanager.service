@@ -7,7 +7,7 @@ After=network-online.target
 User=alertmanager
 Group=alertmanager
 Type=simple
-ExecStart=/usr/local/bin/alertmanager --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/var/lib/alertmanager/ --web.external-url=http://localhost:9093
+ExecStart=/usr/local/bin/alertmanager --config.file=/etc/alertmanager/alertmanager.yml --storage.path=/var/lib/alertmanager/ --web.external-url=http://192.168.1.159:9093
 
 [Install]
 WantedBy=multi-user.target
