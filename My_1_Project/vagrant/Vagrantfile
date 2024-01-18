@@ -1,5 +1,5 @@
 Vagrant.configure("2") do |config|
-  config.vm.provision "shell", inline: "echo Evything is good"
+  config.vm.provision "shell", inline: "echo Everything is good"
   config.vm.synced_folder "/Users/Kostia/vagrant/data/", "/vagrant_data"
 
 #vm1 congifuration file
