@@ -16,7 +16,7 @@ receivers:
         smarthost: smtp.gmail.com:587
         auth_username: 'skaman1722@gmail.com'
         auth_identity: 'skaman1722@gmail.com'
-        auth_password: 'gdtd mqwz qfkl ypja'
+        auth_password: 'gdtd **** qfkl ****'
         send_resolved: true
 
 inhibit_rules:
