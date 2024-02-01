@@ -1,0 +1,27 @@
+global:
+  resolve_timeout: 1m
+
+route:
+  group_by: ['cpu_usage_alert']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 30s
+  receiver: 'gmail-notifications'
+
+receivers:
+  - name: 'gmail-notifications'
+    email_configs:
+      - to: 'skaman1722@gmail.com'
+        from: 'skaman1722@gmail.com'
+        smarthost: smtp.gmail.com:587
+        auth_username: 'skaman1722@gmail.com'
+        auth_identity: 'skaman1722@gmail.com'
+        auth_password: 'gdtd **** qfkl ****'
+        send_resolved: true
+
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'dev', 'instance']

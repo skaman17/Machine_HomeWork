@@ -1,0 +1,19 @@
+# Prometheus
+
+wget https://github.com/prometheus/prometheus/releases/download/v2.37.6/prometheus-2.37.6.linux-amd64.tar.gz - to download prometheus archive
+
+tar xvfz prometheus-*.tar.gz - to un-archive prometheus
+
+then don’t forget to delete prometheus archive file
+
+sudo mkdir /etc/prometheus /var/lib/prometheus
+
+sudo mv prometheus promtool /usr/local/bin
+
+sudo mv prometheus.yml /etc/prometheus/prometheus.yml
+
+sudo mv consoles/ console_libraries/ /etc/prometheus/
+
+sudo useradd -rs /bin/false prometheus
+
+sudo chown -R prometheus: /etc/prometheus /var/lib/prometheus
