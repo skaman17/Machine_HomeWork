@@ -1,0 +1,32 @@
+# Stage 1: Build Node.js dependencies
+FROM node:14 AS node_builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+
+# Stage 2: Build Python environment and copy Node.js build
+FROM python:3.8-slim
+WORKDIR /app
+
+# Install Node.js in Python image (if needed for runtime)
+RUN apt-get update && \
+    apt-get install -y curl && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    apt-get install -y nodejs && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy from Node.js build
+COPY --from=node_builder /app/node_modules ./node_modules
+
+# Continue with Python setup
+COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY start-app.sh .
+RUN chmod +x start-app.sh
+
+ENTRYPOINT ["./start-app.sh"]
+EXPOSE 8080
+
+

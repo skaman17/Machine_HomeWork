@@ -23,31 +23,37 @@ ENV PORT=${APP_PORT}
 
 WORKDIR /app 
 
+# Create non-root User with Dockerfile
+
+RUN groupadd -r appuser && useradd --no-log-init -r -g appuser appuser \
+    && chown -R appuser:appuser /app
+
+# Switch user to new created one 
+
+USER appuser
+
 # Copy package.json and package-lock.json to work dir.
 
 COPY package*.json ./
 
+# Check if non-root user has needed privileges
+
+COPY package*.json ./
+USER root
+RUN chown -R appuser:appuser /app
+USER appuser
+RUN npm install --cache /app/.npm-cache
+
 # Install Node.js dependecies
 
-RUN npm install
+RUN npm install --cache /app/.npm-cache
 
 # Copy the rest
 COPY . .
 
-# Copy mine script and make it exec.
+# Set app to listen PORT 5000 by default
+EXPOSE $PORT
 
-COPY start-app.sh .
-RUN chmod +x start-app.sh
-
-# Set app to listen PORT 3000 by default
-
-EXPOSE 3000
-
-# Use the script as the entry point
-
-ENTRYPOINT ["./start-app.sh"]
-
-#Health check 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:3000/healthz || exit 1
+#Define the command to run app with usin CMD which defines runtime
+CMD ["node", "index.js"]
 
