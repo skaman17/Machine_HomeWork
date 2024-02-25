@@ -1,0 +1,4 @@
+{
+    "registry-mirrors": ["http://nexus-server:8081/repository/docker-proxy"],
+    "insecure-registries": ["192.168.0.101:3000", "192.168.0.101:5000"]
+  }
