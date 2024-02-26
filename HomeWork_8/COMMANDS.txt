@@ -1,3 +1,4 @@
+
 # Create directory for Statis website with Nginx
 mkdir my-site
 
@@ -19,7 +20,55 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-
 # Make the binary executable
 sudo chmod +x /usr/local/bin/docker-compose
 
-# Scalling Service and checking if they are running
+# Take an example static web site, create compose file with nginx container serving this content via volume mount, expose it at port 8080
+sudo docker-compose build 
 sudo docker-compose up -d
-sudo docker cp nginx-web.conf my-site_web_1:/etc/nginx/conf.d/default.conf
 sudo docker-compose ps
+# Check if we copied our nginx-web.conf 
+sudo docker-compose exec web cat /etc/nginx/conf.d/default.conf
+# Check, if our static site is running
+curl http://192.168.0.104:8080/
+
+# Create compose file to run registry in persistent mode, push images to it and confirm that they stay after service down/up
+sudo docker build -t my_image .
+sudo docker tag my_image localhost:5000/my_image
+sudo docker push localhost:5000/my_image
+sudo curl -X GET http://localhost:5000/v2/_catalog
+sudo docker-compose down
+sudo docker-compose up -d
+sudo curl -X GET http://localhost:5000/v2/_catalog
+
+# Use any compose file to start service, scale them up/down from 1 instance to 3 and back
+sudo docker-compose build
+sudo docker-compose up -d
+sudo docker-compose ps
+sudo docker-compose up -d --scale service=3
+sudo docker-compose up -d --scale service=1
+
+# Create compose file which runs two services using same volume to share files between them, one service should create file and second one should be able to read it
+sudo docker build -t service1_image -f Dockerfile1 .
+sudo docker build -t reader_image -f Dockerfile2 .
+sudo docker-compose up
+
+
+# Additional
+# Install Drupal site using docker compose, internal communications between components should use service names as hostnames
+sudo docker-compose up
+
+#Database type: MySQL
+#Database name: drupal
+#Database username: root
+#Database password: root
+#Host: mysql
+#Port number: 3306 (default for MySQL)
+#Username:Test_User
+#Password:KAKAmilan_17
+#Check screenshots for more info (Drupal_start, Drupal_web, Finish_translations_drupal, Completed_drupal)
+
+#Install ELK Stack and play with it
+sudo docker-compose up -d
+sudo docker-compose ps
+ip a 
+# And after we need to connect to container's ip-address with port 5601
+
+
