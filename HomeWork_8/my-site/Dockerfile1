@@ -1,0 +1,17 @@
+# Use an appropriate base image
+FROM alpine:latest
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Install bash
+RUN apk add --no-cache bash
+
+# Create the directory for shared data
+RUN mkdir -p /shared_data
+
+# Run any necessary commands
+RUN echo 'Hello, world!' > /shared_data/test.txt
+
+# Define the command to execute when the container starts
+CMD ["bash", "-c", "while true; do sleep 1000; done"]

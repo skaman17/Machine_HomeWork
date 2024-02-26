@@ -1,0 +1,5 @@
+# Dockerfile for reader service
+FROM alpine
+
+# Define the command to print the message
+CMD ["echo", "Reader service is running!"]
