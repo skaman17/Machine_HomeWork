@@ -71,11 +71,3 @@ sudo docker-compose up -d
 sudo docker-compose ps
 ip a 
 # And after we need to connect to container's ip-address with port 5601
-
-=======
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.16.3-amd64.deb
-sudo dpkg -i elasticsearch-7.16.3-amd64.deb
-sudo systemctl start elasticsearch
-sudo systemctl status elasticsearch
->>>>>>> 08954a96d0894f32b7835c743e15d352496f3dee
-
