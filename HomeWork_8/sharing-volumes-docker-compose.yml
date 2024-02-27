@@ -1,0 +1,15 @@
+version: '3'
+services:
+  service1:
+    image: alpine
+    command: sh -c "echo Hello World > /shared/data.txt"
+    volumes:
+      - shared-data:/shared
+  service2:
+    image: alpine
+    command: cat /shared/data.txt
+    volumes:
+      - shared-data:/shared
+
+volumes:
+  shared-data:
